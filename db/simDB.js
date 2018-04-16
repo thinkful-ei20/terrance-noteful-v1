@@ -1,10 +1,10 @@
 'use strict';
 
 // Simple In-Memory Database (async-callback version)
-const DELAY = 250;
+const DELAY = 100;
 
 const simDB = {
-  
+
   // Synchronous Initialize
   initialize: function(data) {
     this.nextVal = 1000;
@@ -14,7 +14,7 @@ const simDB = {
     });
     return this;
   },
-  
+
   // Asynchronous CRUD operations
   create: function (newItem, callback) {
     setTimeout(() => {

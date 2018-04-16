@@ -1,12 +1,11 @@
 {
-  "name": "noteful-app",
+  "name": "noteful-app-v1",
   "version": "0.0.1",
   "description": "FullStack App w/ RESTful API Challenge",
   "license": "MIT",
   "author": "Chris Klanac",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cklanac/noteful-app.git"
+    "type": "git"
   },
   "main": "server.js",
   "scripts": {
