@@ -13,6 +13,8 @@ const app = express();
 
 app.use(express.static('public'));
 
+app.use(express.json());
+
 const {PORT} = require('./config');
 const logger = require('./middleware/logger'); 
 
@@ -47,6 +49,31 @@ app.get('/api/notes/:id', (req, res) => {
   });
 });
 
+app.put('/api/notes/:id', (req, res, next) => {
+  const id = req.params.id;
+
+  /***** Never trust users - validate input *****/
+  const updateObj = {};
+  const updateFields = ['title', 'content'];
+
+  updateFields.forEach(field => {
+    if (field in req.body) {
+      updateObj[field] = req.body[field];
+    }
+  });
+
+  notes.update(id, updateObj, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    if (item) {
+      res.json(item);
+    } else {
+      next();
+    }
+  });
+});
+
 app.get('/boom', (req, res, next) => {
   throw new Error('Boom!!');
 });
@@ -64,6 +91,7 @@ app.use(function (err, req, res, next) {
     error: err
   });
 });
+
 
 app.listen(PORT, function () {
   console.info(`Server listening on ${this.address().port}`);
