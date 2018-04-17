@@ -2,6 +2,9 @@
 
 const data = require('./db/notes');
 
+const simDB = require('./db/simDB');  
+const notes = simDB.initialize(data);
+
 console.log('Hello Noteful!');
 
 // INSERT EXPRESS APP CODE HERE...
@@ -15,20 +18,33 @@ const logger = require('./middleware/logger');
 
 app.use(logger);
 
-app.get('/api/notes', (req, res) => {
-  if (req.query.searchTerm) {
-    let query = req.query.searchTerm;
-    let match = data.filter(item => item.title.includes(query));
-    res.json(match);
-  } else {
-    res.json(data);
-  }
+app.get('/api/notes', (req, res, next) => {
+  // if (req.query.searchTerm) {
+  //   let query = req.query.searchTerm;
+  //   let match = data.filter(item => item.title.includes(query));
+  //   res.json(match);
+  // } else {
+  //   res.json(data);
+  // }
+  const { searchTerm } = req.query;
+
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err); // goes to error handler
+    }
+    res.json(list); // responds with filtered array
+  });
 });
 
 app.get('/api/notes/:id', (req, res) => {
-  const {id} = req.params;
-  let match = data.find(item => item.id === Number(id));
-  res.json(match);
+  // const {id} = req.params;
+  // let match = data.find(item => item.id === Number(id));
+  // res.json(match);
+  let {id} = req.params;
+  id = Number(id);
+  notes.find( id, (err, item) => {
+    res.json(item);
+  });
 });
 
 app.get('/boom', (req, res, next) => {
