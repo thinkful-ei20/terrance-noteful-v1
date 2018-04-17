@@ -10,6 +10,9 @@ const app = express();
 
 app.use(express.static('public'));
 
+const {PORT} = require('./config');
+console.log(PORT);
+
 app.get('/api/notes', (req, res) => {
   if (req.query.searchTerm) {
     let query = req.query.searchTerm;
@@ -22,11 +25,11 @@ app.get('/api/notes', (req, res) => {
 
 app.get('/api/notes/:id', (req, res) => {
   const {id} = req.params;
-  let match = data.find(item => item.id === Number(id))
+  let match = data.find(item => item.id === Number(id));
   res.json(match);
 });
 
-app.listen(8080, function () {
+app.listen(PORT, function () {
   console.info(`Server listening on ${this.address().port}`);
 }).on('error', err => {
   console.error(err);
