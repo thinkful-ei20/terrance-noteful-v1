@@ -16,9 +16,12 @@ app.use(express.static('public'));
 app.use(express.json());
 
 const {PORT} = require('./config');
-const logger = require('./middleware/logger'); 
+// const logger = require('./middleware/logger'); 
+const morgan = require('morgan');
 
-app.use(logger);
+// app.use(logger);
+
+app.use(morgan('dev'));
 
 app.get('/api/notes', (req, res, next) => {
   // if (req.query.searchTerm) {
