@@ -21,14 +21,15 @@ app.use(morgan('dev'));
 
 app.use('/api', notesRouter);
 
-app.get('/boom', (req, res, next) => {
-  throw new Error('Boom!!');
-});
+// app.get('/boom', (req, res, next) => {
+//   throw new Error('Boom!!');
+// });
 
 app.use(function (req, res, next) {
   let err = new Error('Not Found');
   err.status = 404;
-  res.status(404).json({ message: 'Not Found' });
+  next(err);
+  // res.status(404).json({ message: 'Not Found' });
 });
 
 app.use(function (err, req, res, next) {

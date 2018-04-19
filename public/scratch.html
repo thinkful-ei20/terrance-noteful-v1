@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <script src="//code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="/scripts/api.js"></script>
+
+  <script>
+    // test get all
+    api.search({})
+      .then(response => {
+        console.log(response)
+      });
+
+    // test get all with search term
+    api.search({searchTerm: 'cats'})
+      .then(response => {
+        console.log(response)
+    });  
+    
+    api.details(1000)
+      .then((response) => {
+        console.log(response);
+      });
+    
+
+  //   update: function(id, obj) {
+  //   return $.ajax({
+  //     type: 'PUT',
+  //     url: `/api/notes/${id}`,
+  //     contentType: 'application/json',
+  //     dataType: 'json',
+  //     data: JSON.stringify(obj),
+  //   });
+  // }
+    api.update(1001, {"title": "something", "content": "something else"})
+      .then( (response) => {
+        console.log(response);
+      });
+
+  // create: function(obj) {
+  //   return $.ajax({
+  //     type: 'POST',
+  //     url: '/api/notes',
+  //     contentType: 'application/json',
+  //     dataType: 'json',
+  //     processData: false,
+  //     data: JSON.stringify(obj),
+  //   });
+  // }
+    api.create({"title": "something", "content": "something else"})
+      .then( (response) => {
+        console.log(response);
+      });
+
+  // remove: function(id) {
+  //   return $.ajax({
+  //     type: 'DELETE',
+  //     url: `/api/notes/${id}`,
+  //     dataType: 'json',
+  //   });
+  // }
+    api.remove(1005)
+      .then(() => {
+        console.log('it gone ya\'ll');
+      });
+
+  </script>
+  
+</body>
+</html>
