@@ -97,9 +97,12 @@ describe('GET /api/notes/:id', function() {
       });
   });
 
-  // it('should respond with a 404 for an invalid id', function() {
-  //   return chai.request(app)
-  //     .get('/api/notes/DOESNOTEXIT')
-  // });
+  it('should respond with a 404 for an invalid id', function() {
+    return chai.request(app)
+      .get('/api/notes/DOESNOTEXIST')
+      .then( function(res) {
+        expect(res).status(404);
+      });
+  });
 
 });
