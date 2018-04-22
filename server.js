@@ -34,7 +34,7 @@ app.use(function (err, req, res, next) {
 });
 
 if (require.main === module) {
-  app.listen(PORT, function () {
+  app.listen(process.env.PORT || PORT, function () {
     console.info(`Server listening on ${this.address().port}`);
   }).on('error', err => {
     console.error(err);
