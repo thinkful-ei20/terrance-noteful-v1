@@ -242,6 +242,4 @@ describe('DELETE /api/notes/:id', function() {
       });
   });
 
-  //delete this later
-
 });
